@@ -28,6 +28,26 @@ data.js 更新上线
 
 ---
 
+## 环境与预览
+
+项目通过 **Cloudflare Pages** 连接 GitHub 仓库，自动管理两套环境：
+
+| 环境 | 触发 | URL | 用途 |
+|------|------|-----|------|
+| **Preview** | push 到任意分支 | `<hash>.ffxiv-race-stats.pages.dev` | 开发自测 / 运营视觉确认 |
+| **Production** | PR 合并到 main | `ffxiv-race-stats.pages.dev` | 对外服务 |
+
+无需手动部署——每次 push 都会自动生成预览链接，合并后自动上线生产。
+
+### 预览在两条轨道中的使用
+
+| 轨道 | 预览用途 |
+|------|---------|
+| **开发** (`feature/*`) | push 后拿到预览链接，在浏览器中自测 UI 改动 |
+| **运营** (`content/*`) | Agent push 后输出预览链接，运营者在浏览器确认数据正确 → 回复"合并" → Agent 执行 merge |
+
+---
+
 ## 开发规范
 
 ### Clone
@@ -55,9 +75,11 @@ git clone git@github.com:ffxiv-race-stats/ffxiv-race-stats.git
 2. git checkout -b feature/<描述>
 3. 写代码 → 本地用浏览器打开 index.html 测试
 4. commit（英文，格式: feat: / fix: / refactor: / docs: + 描述）
-5. git push → 去 github.com 创建 PR
-6. CI（validate）自动运行，绿色 ✓ 后才能合并
-7. Squash and merge 合入 main
+5. git push
+   → Cloudflare Pages 自动生成预览链接: <hash>.ffxiv-race-stats.pages.dev
+6. 在预览链接中确认效果 → 去 github.com 创建 PR
+7. CI（validate）自动运行，绿色 ✓ 后才能合并
+8. Squash and merge 合入 main → 自动部署到生产站
 ```
 
 ### Commit 格式
@@ -78,6 +100,7 @@ docs: update responsive breakpoint documentation
 - **OKLCH 设计系统**：CSS 变量控制全局主题，系统字体栈
 - **Squash Merge**：main 分支保持干净，一个 PR = 一个 commit
 - **运营免 Git**：运营者不碰 GitHub，全程由 PI Agent 执行
+- **预览机制**：每个分支自动生成独立预览 URL，上线前必须视觉确认
 
 ---
 
