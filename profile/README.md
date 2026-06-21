@@ -34,7 +34,7 @@ data.js 更新上线
 
 | 环境 | 触发 | URL | 用途 |
 |------|------|-----|------|
-| **Preview** | push 到任意分支 | `<hash>.ffxiv-race-stats.pages.dev` | 开发自测 / 运营视觉确认 |
+| **Preview** | push 到任意分支 | `<sanitized-branch>.ffxiv-race-stats.pages.dev` | 开发自测 / 运营视觉确认 |
 | **Production** | PR 合并到 main | `ffxiv-race-stats.pages.dev` | 对外服务 |
 
 无需手动部署——每次 push 都会自动生成预览链接，合并后自动上线生产。
@@ -76,7 +76,7 @@ git clone git@github.com:ffxiv-race-stats/ffxiv-race-stats.git
 3. 写代码 → 本地用浏览器打开 index.html 测试
 4. commit（英文，格式: feat: / fix: / refactor: / docs: + 描述）
 5. git push
-   → Cloudflare Pages 自动生成预览链接: <hash>.ffxiv-race-stats.pages.dev
+   → Cloudflare Pages 自动生成预览链接: <sanitized-branch>.ffxiv-race-stats.pages.dev
 6. 在预览链接中确认效果 → 去 github.com 创建 PR
 7. CI（validate）自动运行，绿色 ✓ 后才能合并
 8. Squash and merge 合入 main → 自动部署到生产站
